@@ -1,8 +1,24 @@
 import { reactive, ref, type Ref } from "vue";
-import type { TweetDetail  } from "./typings";
-import { getPageTweets } from "./apis";
+import type { TweetDetail, UserProfile  } from "./typings";
+import { getPageTweets, getUserProfile, verifyUser } from "./apis";
 
 export const loginStatus = ref(false);
+export const currentUser = reactive({
+    loginStatus: false,
+    signIn(up: UserProfile) {
+        this.loginStatus = true;
+        localStorage.setItem("userProfile", JSON.stringify(up))
+    },
+    signOut() {
+        localStorage.removeItem("userProfile")
+    },
+    loadUser() :UserProfile | null {
+        const up = localStorage.getItem("userProfile")
+        if (!up) return null;
+        const userProfile = JSON.parse(up);
+        return userProfile; 
+    }
+})
 export const homePageTweets = reactive({
     page: 1,
     isFetching: false,
@@ -25,3 +41,4 @@ export const homePageTweets = reactive({
         this.isFetching = false;
     }
 })
+

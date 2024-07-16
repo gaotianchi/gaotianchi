@@ -3,6 +3,7 @@ import { postToken, getUserProfile } from "@/apis";
 import { setAccessToken } from "@/utlis";
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
+import { currentUser } from "@/store";
 const username = ref<string>("");
 const password = ref<string>("");
 const router = useRouter();
@@ -14,6 +15,8 @@ async function submit(): Promise<void> {
             setAccessToken(responseData)
             console.log("登录成功！")
             getUserProfile(username.value).then((up) => {
+                currentUser.signIn(up);
+                console.log(currentUser);
                 router.push("/")
             })
         } catch (error) {

@@ -1,7 +1,27 @@
 from flask import url_for
 
-from src.database import Photo, Tweet, User
+from src.apis.v1.database import Photo, Resume, Tweet, User
 from src.utlis import serialize_datetime
+
+#################### resume #############################
+
+
+def get_resume_profile(r: Resume):
+    url = url_for("v1.visitor.get_a_resume", filename=r.filename, _external=True)
+    return {"id": r.id, "filename": r.filename, "url": url, "userId": r.user_id}
+
+
+def get_resume_detail(r: Resume):
+    url = url_for("v1.visitor.get_a_resume", filename=r.filename, _external=True)
+    return {
+        "id": r.id,
+        "filename": r.filename,
+        "url": url,
+        "userProfile": get_user_profile(r.user),
+    }
+
+
+######################## photo ################################
 
 
 def get_photo_profile(photo: Photo):
@@ -28,6 +48,9 @@ def get_photo_detail(p: Photo):
     }
 
 
+########################## tweet #################################
+
+
 def get_tweet_profile(t: Tweet):
     return {
         "id": t.id,
@@ -47,6 +70,9 @@ def get_tweet_detail(t: Tweet):
     }
 
 
+############################ user ##################################
+
+
 def get_user_profile(u: User):
     return {
         "id": u.id,
@@ -64,7 +90,11 @@ def get_user_detail(u: User):
         "registerAt": serialize_datetime(u.registered_at),
         "tweetProfiles": [get_tweet_profile(t) for t in u.tweets[:30]],
         "photoProfiles": [get_photo_profile(p) for p in u.photos[:50]],
+        "resumeProfile": get_resume_profile(u.resume),
     }
+
+
+############################ token ##################################33
 
 
 def get_token_response_data(access_token: str, token_type: str):

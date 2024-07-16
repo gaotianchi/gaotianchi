@@ -2,8 +2,7 @@ api-doc.md
 **.db
 .vscode
 *.pdf
-!*.gitkeep
-
+data/**
 
 
 

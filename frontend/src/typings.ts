@@ -42,6 +42,7 @@ export type UserDetail = {
     registerAt: string;
     tweetProfiles: TweetProfile[];
     photoProfiles: PhotoProfile[];
+    resumeProfile: ResumeProfile;
 }
 
 export type TokenData = {
@@ -52,4 +53,18 @@ export type TokenData = {
 export interface FilePreview {
     file: File;
     previewUrl: string;
+}
+
+export type ResumeProfile = {
+    id: number;
+    filename: string;
+    url: string;
+    userId: number;
+}
+
+export type ResumeDetail = {
+    id: number;
+    filename: string;
+    url: string;
+    userProfile: UserProfile
 }

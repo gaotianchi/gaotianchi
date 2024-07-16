@@ -5,7 +5,7 @@ from typing import Any, Callable, Tuple, Union
 from cryptography.fernet import Fernet, InvalidToken
 from flask import current_app, g, request
 
-from src.database import User
+from src.apis.v1.database import User
 from src.utlis import abort
 
 

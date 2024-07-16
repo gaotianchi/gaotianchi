@@ -11,6 +11,7 @@ ROOT = Path(__file__).parent.parent
 class BaseConfig:
     SECRET_KEY = b"0yy0lYd6o4Yqv3v99kt1J7VtJRbq44z8CVkTBw3Aagg="
     UPLOAD_FOLDER = ROOT.joinpath("data", "uploads")
+    RESUME_FOLDER = ROOT.joinpath("data", "resumes")
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
     NUMBER_OF_PAGE_TWEETS = 2
 

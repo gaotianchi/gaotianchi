@@ -1,6 +1,6 @@
 from flask import Blueprint, g, jsonify, request
 
-from src.database import User
+from src.apis.v1.database import User
 from src.utlis import abort
 
 from .apis import get_token_response_data, get_user_profile

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from './pages/Home.vue'
 import { verifyUser } from '@/apis';
-import { loginStatus } from '@/store';
+import { currentUser } from '@/store';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,11 +13,12 @@ const router = createRouter({
     },
     {
       path: "/signup",
+      name: "SignUp",
       component: () => import("./pages/SignUp.vue")
     },
     {
       path: "/signin",
-      name: "Login",
+      name: "SignIn",
       component: () => import("./pages/SignIn.vue")
     },
     {
@@ -29,7 +30,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
 	if (to.meta.loginRequired) {
 		const isAuthenticated = await verifyUser();
-    loginStatus.value = isAuthenticated;
+    currentUser.loginStatus = isAuthenticated;
 		if (!isAuthenticated && to.name !== "Login") {
 			return { name: "Login" };
 		} else {

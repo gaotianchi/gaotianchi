@@ -2,17 +2,15 @@
 import { getAdminProfile, patchAUserProfile } from "@/apis";
 import type { UserProfile } from "@/typings";
 import { onMounted, ref, type Ref } from "vue";
-import { loginStatus } from "@/store";
+import { currentUser } from "@/store";
 
+const user = currentUser.loadUser()
 const currentUserProfile: Ref<UserProfile> = ref({ id: 0, profile: "", registerAt: "", username: "" });
 const profileStatus: Ref<"normal" | "edit"> = ref("normal");
 const currentProfile = ref("")
 
 onMounted(() => {
-  getAdminProfile().then((up) => {
-    currentUserProfile.value = up;
-    currentProfile.value = up.profile;
-  })
+
 })
 
 function updateProfile(): void {
@@ -36,7 +34,7 @@ function updateProfile(): void {
       <button @click="() => profileStatus = 'edit'"
         class="focus:outline-black text-white text-sm py-2.5 px-4 border-b-4 border-blue-600 bg-blue-500 hover:bg-blue-400">编辑</button>
     </div>
-    <div v-if="profileStatus == 'edit' && loginStatus" class="flex justify-between w-full px-3">
+    <div v-if="profileStatus == 'edit' && currentUser.loginStatus" class="flex justify-between w-full px-3">
       <div class="md:flex md:items-center">
       </div>
       <button @click="updateProfile"

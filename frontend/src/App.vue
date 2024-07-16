@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Profile from './components/Profile.vue'
 import { onMounted } from 'vue';
+
+const route = useRoute();
 
 onMounted(() => {
 

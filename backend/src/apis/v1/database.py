@@ -17,6 +17,7 @@ class User(db.Model):
     registered_at: Mapped[datetime] = mapped_column(DateTime)
     tweets: Mapped[List["Tweet"]] = relationship(back_populates="user")
     photos: Mapped[List["Photo"]] = relationship(back_populates="user")
+    resume: Mapped["Resume"] = relationship(back_populates="user")
 
     @classmethod
     def create(cls, username: str, password: str) -> "User":
@@ -43,6 +44,27 @@ class User(db.Model):
 
     def validate_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+
+class Resume(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    filename: Mapped[str] = mapped_column(String(255), unique=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    user: Mapped[User] = relationship(back_populates="resume")
+
+    @classmethod
+    def create(cls, filename: str, user_id: int) -> "Resume":
+        resume = Resume(filename=filename, user_id=user_id)  # type: ignore
+        db.session.add(resume)
+        db.session.commit()
+
+        return Resume.query.get(resume.id)  # type: ignore
+
+    def update(self, filename: str) -> "Resume":
+        self.filename = filename
+        db.session.add(self)
+        db.session.commit()
+        return Resume.query.get(self.id)  # type: ignore
 
 
 class Tweet(db.Model):
