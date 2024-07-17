@@ -43,5 +43,5 @@ npm run dev
 
 ## 使用视频
 
-<source src="https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4" type="video/mp4">
+![video](https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4)
 
