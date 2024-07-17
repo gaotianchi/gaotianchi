@@ -43,6 +43,10 @@ npm run dev
 
 ## 使用视频
 
-<video src="https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4" controls="controls" width="500" height="300"></video>
+
+
+https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4
+
+
 
 
