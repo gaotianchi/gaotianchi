@@ -1,6 +1,5 @@
 from flask import Flask
 
-from .apis import v1_bp
 from .commands import register_commands
 from .flaskextens import cors, db
 from .settings import get_config
@@ -13,10 +12,14 @@ def create_app() -> Flask:
     db.init_app(app)
     cors.init_app(app)
     register_commands(app)
-    app.register_blueprint(v1_bp)
+    match config.VERSION:  # type: ignore
+        case "1":
+            from .apis.v1 import v1
 
-    @app.route("/")
-    def hello():  # type: ignore
-        return "hello"
+            app.register_blueprint(v1)
+        case "2":
+            from .apis.v2 import v2
+
+            app.register_blueprint(v2)
 
     return app

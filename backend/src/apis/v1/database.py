@@ -94,7 +94,7 @@ class Tweet(db.Model):
     def delete(self):
         config = get_config()
         for p in self.photos:
-            path = config.UPLOAD_FOLDER.joinpath(p.filename)
+            path = config.PHOTO_FOLDER.joinpath(p.filename)
             path.unlink()
             db.session.delete(p)
         db.session.commit()
@@ -124,7 +124,7 @@ class Photo(db.Model):
 
     def delete(self):
         config = get_config()
-        path = config.UPLOAD_FOLDER.joinpath(self.filename)
+        path = config.PHOTO_FOLDER.joinpath(self.filename)
         path.unlink()
         db.session.delete(self)
         db.session.commit()

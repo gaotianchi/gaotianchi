@@ -1,48 +1,48 @@
 <script setup lang="ts">
+import { getMyProfile } from '@/apis';
+import type { MyProfile } from '@/typing';
 import { onMounted, ref, type Ref } from 'vue';
-import type { TweetDetail } from '@/typings';
-import { getPageTweets, getLatestTweet, verifyUser } from "@/apis";
-import TweetCard from '@/components/TweetCard.vue';
-import CreateTweetEditor from '@/components/CreateTweetEditor.vue';
-import { homePageTweets, currentUser } from "@/store";
-
-const mainContainer = ref<HTMLElement | null>(null);
-
-function handleScroll() {
-  if (mainContainer.value) {
-    const bottomOfWindow = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
-    if (bottomOfWindow) {
-      homePageTweets.loadTweets();
-    }
-  }
-};
-
-function insertLatestTweet(): void {
-  setTimeout(() => {
-    getLatestTweet().then((tweetDetail) => {
-      homePageTweets.addNewTweet(tweetDetail)
-    })
-  }, 2000)
-}
+const myProfile: Ref<MyProfile | null> = ref(null)
 
 onMounted(() => {
-  homePageTweets.loadTweets();
-  window.addEventListener('scroll', handleScroll);
-});
-
-function remoteDeletedTweet(tweet: TweetDetail): void {
-  homePageTweets.removeDeleteTweet(tweet)
-}
-console.log(currentUser)
+    getMyProfile().then((mp) => {
+        myProfile.value = mp;
+        if (mp.blogSubTitle) {
+            document.title = mp.blogTitle + " -- " + mp.blogSubTitle;
+        } else {
+            document.title = mp.blogTitle;
+        }
+    })
+})
 </script>
+
 <template>
-  <main ref="mainContainer">
-    <CreateTweetEditor v-if="currentUser.loginStatus" @submit-form="insertLatestTweet" />
-    <TweetCard v-for="t in homePageTweets.tweets" :tweet="t" :key="t.id" @delete="remoteDeletedTweet"></TweetCard>
-  </main>
+    <main>
+        <header class="flex items-center space-x-4 p-4 bg-gray-100">
+            <img alt="logo" class="logo rounded-full w-32 h-32 object-cover m-3" src="@/assets/logo.jpg" />
+            <div class="flex flex-col m-0 sjdkfslsdf">
+                <p class="text-lg font-semibold">{{ myProfile?.profile }}</p>
+                <nav class="mt-2">
+                    <RouterLink class="text-base font-normal text-gray-500 list-none hover:text-gray-900 mr-1" to="/">主页
+                    </RouterLink>
+                    <RouterLink class="text-base font-normal text-gray-500 list-none hover:text-gray-900 ml-1"
+                        to="/resume">
+                        简历
+                    </RouterLink>
+                </nav>
+            </div>
+        </header>
+        <RouterView />
+    </main>
 </template>
-<style scoped>
-main {
-  padding: 16px;
+
+<style lang="css">
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    text-align: center;
 }
 </style>

@@ -1,4 +1,4 @@
-import type { TokenData } from "./typings";
+import type { TokenData } from "./typing";
 export function setAccessToken(data: TokenData): void {
 	localStorage.setItem("accessToken", JSON.stringify(data));
 }

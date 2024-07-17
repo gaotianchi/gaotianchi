@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import IconClear from "./icons/IconClear.vue";
 import { type Ref, ref } from "vue";
-import type { FilePreview } from "@/typings";
-import { postATweet, postAPhoto, getLatestTweet } from "@/apis"
+import type { FilePreview } from "@/typing";
+import { postATweet, postAPhoto } from "@/apis"
 
 const emits = defineEmits(["submitForm"]);
 
@@ -56,7 +56,8 @@ function submitForm(): void {
 
 </script>
 <template>
-    <form @submit.prevent="submitForm()">
+    <form @submit.prevent="submitForm()"
+        class="bg-white rounded-lg shadow-lg overflow-hidden max-w-lg w-full mx-auto mt-10">
         <div class="parent-EyNP7gqLgx">
             <!-- 文本输入框以及提交按钮 -->
             <div class="parent-EkxKrx9Uel max-w-xlmx-auto">

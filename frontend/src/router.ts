@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from './pages/Home.vue'
-import { verifyUser } from '@/apis';
-import { currentUser } from '@/store';
+import { verifyUser } from './apis';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,35 +8,52 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      children: [
+        {
+          path: "",
+          name: "Tweets",
+          component: () => import("@/components/Tweets.vue")
+        },
+        {
+          path: "/resume",
+          name: "Resume",
+          component: () => import("@/components/Resume.vue")
+        }
+      
+      ]
     },
     {
-      path: "/signup",
+      path: "/info-form",
+      name: "InfoForm",
+      component: () => import("@/pages/InfoForm.vue"),
+      meta: {
+        loginRequired: true
+      }
+    },
+    {
+      path: "/sign-up",
       name: "SignUp",
-      component: () => import("./pages/SignUp.vue")
+      component: () => import("@/pages/SignUp.vue")
     },
     {
-      path: "/signin",
+      path: "/sign-in",
       name: "SignIn",
-      component: () => import("./pages/SignIn.vue")
-    },
-    {
-      path: "/resume",
-      component: () => import("./pages/Resumes.vue")
+      component: () => import("@/pages/SignIn.vue")
     }
   ]
 })
 router.beforeEach(async (to, from) => {
-	if (to.meta.loginRequired) {
-		const isAuthenticated = await verifyUser();
-    currentUser.loginStatus = isAuthenticated;
-		if (!isAuthenticated && to.name !== "Login") {
-			return { name: "Login" };
-		} else {
-			if (to.name === "Login") {
-				alert("You have logged in.");
-			}
-		}
+    if (to.meta.loginRequired) {
+      const isAuthenticated = await verifyUser();
+      if (!isAuthenticated && to.name !== "SignIn") {
+        return { name: "SignIn" };
+      } else {
+        if (to.name === "SignIn") {
+          alert("You have logged in.");
+        }
+      }
+    }
 	}
-});
+);
 export default router
