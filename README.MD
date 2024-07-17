@@ -43,8 +43,5 @@ npm run dev
 
 ## 使用视频
 
-
-<video width="320" height="240" controls>
-    <source src="https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4" type="video/mp4">
-</video>
+<source src="https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4" type="video/mp4">
 
