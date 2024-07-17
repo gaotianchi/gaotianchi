@@ -41,6 +41,10 @@ npm run dev
 ```
 
 
-## 运行截图
+## 使用视频
 
-https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4
+```HTML
+<video width="320" height="240" controls>
+    <source src="https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4" type="video/mp4">
+</video>
+```
