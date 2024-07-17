@@ -19,7 +19,7 @@ onMounted(() => {
 <template>
     <main>
         <header class="flex items-center space-x-4 p-4 bg-gray-100">
-            <img alt="logo" class="logo rounded-full w-32 h-32 object-cover m-3" src="@/assets/logo.jpg" />
+            <img alt="logo" class="logo rounded-full w-32 h-32 object-cover m-3" src="@/assets/logo.png" />
             <div class="flex flex-col m-0 sjdkfslsdf">
                 <p class="text-lg font-semibold">{{ myProfile?.profile }}</p>
                 <nav class="mt-2">
