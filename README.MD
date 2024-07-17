@@ -42,4 +42,4 @@ npm run dev
 
 
 ## 运行截图
-![](https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4)
+https://github.com/gaotianchi/gaotianchi/blob/main/screenshots/Record.mp4
